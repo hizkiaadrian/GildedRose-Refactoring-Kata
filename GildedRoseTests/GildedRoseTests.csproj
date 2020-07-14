@@ -52,7 +52,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AgedBrieTest.cs" />
-        <Compile Include="ApprovalTest.cs" />
         <Compile Include="BackstagePassTest.cs" />
         <Compile Include="ConjuredItemTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

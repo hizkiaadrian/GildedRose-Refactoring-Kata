@@ -2,6 +2,9 @@
 {
     public class Item
     {
+        private const int SulfurasQuality = 80;
+        private const int UpperLimitQuality = 50;
+        private const int LowerLimitQuality = 0;
         public string Name { get; set; }
         public int SellIn { get; set; }
         public int Quality { get; set; }
@@ -13,89 +16,50 @@
 
         public void UpdateQuality()
         {
-            if (Name != "Aged Brie" && Name != "Backstage passes to a TAFKAL80ETC concert")
+            switch (Name)
             {
-                if (Quality > 0)
-                {
-                    if (Name != "Sulfuras, Hand of Ragnaros")
+                case "Aged Brie":
+                    if (SellIn > 0) IncreaseQuality(1);
+                    else IncreaseQuality(2);
+                    SellIn -= 1;
+                    break;
+                
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    if (SellIn > 10) IncreaseQuality(1);
+                    else if (SellIn > 5) IncreaseQuality(2);
+                    else if (SellIn > 0) IncreaseQuality(3);
+                    else Quality = 0;
+                    SellIn -= 1;
+                    break;
+                
+                case "Sulfuras, Hand of Ragnaros":
+                    Quality = SulfurasQuality;
+                    break;
+                
+                default:
+                    if (Name.StartsWith("Conjured"))
                     {
-                        if (!Name.StartsWith("Conjured"))
-                        {
-                            Quality = Quality - 1;
-                        }
-                        else
-                        {
-                            Quality = (Quality >= 2) ? Quality - 2 : 0;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (Quality < 50)
-                {
-                    Quality = Quality + 1;
-
-                    if (Name == "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (SellIn < 11)
-                        {
-                            if (Quality < 50)
-                            {
-                                Quality = Quality + 1;
-                            }
-                        }
-
-                        if (SellIn < 6)
-                        {
-                            if (Quality < 50)
-                            {
-                                Quality = Quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (Name != "Sulfuras, Hand of Ragnaros")
-            {
-                SellIn = SellIn - 1;
-            }
-
-            if (SellIn < 0)
-            {
-                if (Name != "Aged Brie")
-                {
-                    if (Name != "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (Quality > 0)
-                        {
-                            if (Name != "Sulfuras, Hand of Ragnaros")
-                            {
-                                if (!Name.StartsWith("Conjured"))
-                                {
-                                    Quality = Quality - 1;
-                                }
-                                else
-                                {
-                                    Quality = Quality - 2;
-                                }
-                            }
-                        }
+                        if (SellIn > 0) DecreaseQuality(2);
+                        else DecreaseQuality(4);
                     }
                     else
                     {
-                        Quality = Quality - Quality;
+                        if (SellIn > 0) DecreaseQuality(1);
+                        else DecreaseQuality(2);
                     }
-                }
-                else
-                {
-                    if (Quality < 50)
-                    {
-                        Quality = Quality + 1;
-                    }
-                }
+                    SellIn -= 1;
+                    break;
             }
+        }
+
+        public void IncreaseQuality(int amountOfIncrease)
+        {
+            Quality = (Quality < (UpperLimitQuality - amountOfIncrease)) ? Quality + amountOfIncrease : UpperLimitQuality;
+        }
+        
+        public void DecreaseQuality(int amountOfDecrease)
+        {
+            Quality = (Quality > (LowerLimitQuality + amountOfDecrease)) ? Quality - amountOfDecrease : LowerLimitQuality;
         }
     }
 }

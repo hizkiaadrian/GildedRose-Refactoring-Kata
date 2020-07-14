@@ -1,4 +1,7 @@
-﻿namespace csharp
+﻿using System.Security.AccessControl;
+using System.Text.RegularExpressions;
+
+namespace csharp
 {
     public class Item
     {
@@ -19,47 +22,40 @@
             switch (Name)
             {
                 case "Aged Brie":
-                    if (SellIn > 0) IncreaseQuality(1);
-                    else IncreaseQuality(2);
-                    SellIn -= 1;
+                    IncreaseQuality(SellIn-- > 0 ? 1 : 2);
                     break;
-                
+
                 case "Backstage passes to a TAFKAL80ETC concert":
-                    if (SellIn > 10) IncreaseQuality(1);
-                    else if (SellIn > 5) IncreaseQuality(2);
-                    else if (SellIn > 0) IncreaseQuality(3);
-                    else Quality = 0;
-                    SellIn -= 1;
+                    IncreaseQuality(SellIn > 10 ?
+                        1 : SellIn > 5 ?
+                            2 : SellIn > 0 ?
+                                3 : -Quality);
+                    SellIn--;
                     break;
-                
+
                 case "Sulfuras, Hand of Ragnaros":
                     Quality = SulfurasQuality;
                     break;
-                
+
+                case var item when new Regex(@"^Conjured").IsMatch(item):
+                    DecreaseQuality(SellIn-- > 0 ? 2 : 4);
+                    break;
+
                 default:
-                    if (Name.StartsWith("Conjured"))
-                    {
-                        if (SellIn > 0) DecreaseQuality(2);
-                        else DecreaseQuality(4);
-                    }
-                    else
-                    {
-                        if (SellIn > 0) DecreaseQuality(1);
-                        else DecreaseQuality(2);
-                    }
-                    SellIn -= 1;
+                    DecreaseQuality(SellIn-- > 0 ? 1 : 2);
+                    ;
                     break;
             }
         }
 
         public void IncreaseQuality(int amountOfIncrease)
         {
-            Quality = (Quality < (UpperLimitQuality - amountOfIncrease)) ? Quality + amountOfIncrease : UpperLimitQuality;
+            Quality = Quality < UpperLimitQuality - amountOfIncrease ? Quality + amountOfIncrease : UpperLimitQuality;
         }
-        
+
         public void DecreaseQuality(int amountOfDecrease)
         {
-            Quality = (Quality > (LowerLimitQuality + amountOfDecrease)) ? Quality - amountOfDecrease : LowerLimitQuality;
+            Quality = Quality > LowerLimitQuality + amountOfDecrease ? Quality - amountOfDecrease : LowerLimitQuality;
         }
     }
 }

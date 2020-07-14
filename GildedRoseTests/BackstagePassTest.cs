@@ -11,10 +11,8 @@ namespace GildedRoseTests
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 15, Quality = 2 } };
             GildedRose app = new GildedRose(Items);
-            app.UpdateQuality();
-            app.UpdateQuality();
-            app.UpdateQuality();
-            
+            app.UpdateQuality(3);
+
             Assert.AreEqual(5, Items[0].Quality);
         }
         
@@ -23,10 +21,8 @@ namespace GildedRoseTests
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 2 } };
             GildedRose app = new GildedRose(Items);
-            app.UpdateQuality();
-            app.UpdateQuality();
-            app.UpdateQuality();
-            
+            app.UpdateQuality(3);
+
             Assert.AreEqual(8, Items[0].Quality);
         }
         
@@ -35,10 +31,8 @@ namespace GildedRoseTests
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 2 } };
             GildedRose app = new GildedRose(Items);
-            app.UpdateQuality();
-            app.UpdateQuality();
-            app.UpdateQuality();
-            
+            app.UpdateQuality(3);
+
             Assert.AreEqual(11, Items[0].Quality);
         }
         
@@ -47,10 +41,8 @@ namespace GildedRoseTests
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 2, Quality = 20 } };
             GildedRose app = new GildedRose(Items);
-            app.UpdateQuality();
-            app.UpdateQuality();
-            app.UpdateQuality();
-            
+            app.UpdateQuality(3);
+
             Assert.AreEqual(0, Items[0].Quality);
         }
     }

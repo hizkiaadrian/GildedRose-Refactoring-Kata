@@ -11,10 +11,8 @@ namespace GildedRoseTests
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Conjured Humps", SellIn = 3, Quality = 8 } };
             GildedRose app = new GildedRose(Items);
-            app.UpdateQuality();
-            app.UpdateQuality();
-            app.UpdateQuality();
-            
+            app.UpdateQuality(3);
+
             Assert.AreEqual(2, Items[0].Quality);
         }
         
@@ -23,10 +21,8 @@ namespace GildedRoseTests
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Conjured Humps", SellIn = 3, Quality = 2 } };
             GildedRose app = new GildedRose(Items);
-            app.UpdateQuality();
-            app.UpdateQuality();
-            app.UpdateQuality();
-            
+            app.UpdateQuality(3);
+
             Assert.AreEqual(0, Items[0].Quality);
         }
     }

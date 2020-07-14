@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using csharp;
+using NUnit.Framework;
 
-namespace csharp
+namespace GildedRoseTest
 {
-    [TestFixture]
     public class AgedBrieTest
     {
         [Test]

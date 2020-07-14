@@ -12,7 +12,7 @@ namespace GildedRoseTests
             IList<Item> Items = new List<Item> { new Item { Name = "My Humps", SellIn = 5, Quality = 10 } };
             GildedRose app = new GildedRose(Items);
             app.UpdateQuality(3);
-
+          
             Assert.AreEqual(7, Items[0].Quality);
         }
         
